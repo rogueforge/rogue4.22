@@ -58,6 +58,7 @@ init_player()
     obj = new_item();
     obj->o_type = ARMOR;
     obj->o_which = RING_MAIL;
+    obj->o_damage = obj->o_hurldmg = "0d0";
     obj->o_ac = a_class[RING_MAIL] - 1;
     obj->o_flags |= ISKNOW;
     cur_armor = obj;
@@ -67,6 +68,7 @@ init_player()
      */
     obj = new_item();
     obj->o_type = FOOD;
+    obj->o_damage = obj->o_hurldmg = "0d0";
     obj->o_count = 1;
     obj->o_which = 0;
     add_pack(obj, TRUE);
