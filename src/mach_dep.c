@@ -49,7 +49,7 @@ init_check()
 	exit(1);
     }
     mytty = ttyname(0);
-#if defined(MAXLOAD) || defined(MAXUSERS)
+#if MAXLOAD|MAXUSERS
     if (too_much())
     {
 	printf("Sorry, %s, but the system is too loaded now.\n", whoami);
@@ -155,7 +155,7 @@ start_score()
 #endif
 }
 
-#if defined(MAXLOAD) || defined(MAXUSERS)
+#if MAXLOAD|MAXUSERS
 /*
  * too_much:
  *	See if the system is being used too much for this game
@@ -173,7 +173,7 @@ too_much()
     if (avec[1] > (MAXLOAD / 10.0))
 	return TRUE;
 #endif
-#ifdef MAXUSERS
+#if MAXUSERS
     if (ucount() > MAXUSERS)
 	return TRUE;
 #endif
@@ -307,7 +307,7 @@ ucount()
 }
 #endif
 
-#if defined(MAXUSERS) && !defined(UCOUNT)
+#if MAXUSERS && !defined(UCOUNT)
 /*
  * ucount:
  *	Count number of users on the system, from the system's own
