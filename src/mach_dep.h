@@ -21,14 +21,6 @@
 				/* if not defined checks are only on startup */
 #endif
 
-#ifdef MAXLOAD
-#define	LOADAV			/* defined if rogue should provide loadav() */
-
-#ifdef LOADAV
-#define	NAMELIST	"/vmunix"	/* where the system namelist lives */
-#endif
-#endif
-
 #ifdef MAXUSERS
 #define	UCOUNT			/* defined if rogue should provide ucount() */
 
