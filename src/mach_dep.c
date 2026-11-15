@@ -33,6 +33,7 @@ static char *lockfile = "/tmp/.roguelock";
 #ifdef CHECKTIME
 static int num_checks;		/* times we've gone over in checkout() */
 #endif
+int (*tstp_handler)();		/* what a stop is to do while the game is on the screen */
 
 /*
  * init_check:
@@ -134,6 +135,10 @@ setup()
     sigprocmask(SIG_UNBLOCK, &set, (sigset_t *) NULL);
     alarm(CHECKTIME * 60);
     num_checks = 0;
+#endif
+#ifdef SIGTSTP
+    tstp_handler = signal(SIGTSTP, SIG_IGN);
+    signal(SIGTSTP, tstp_handler);
 #endif
     crmode();				/* Cbreak mode */
     noecho();				/* Echo off */

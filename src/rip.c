@@ -48,6 +48,7 @@ char monst;
     register char *killer;
     register int prflags = 0;
     register int (*fp)(), uid;
+    extern int (*tstp_handler)();
 
     static struct sc_ent {
 	unsigned short sc_score;
@@ -88,6 +89,9 @@ char monst;
     signal(SIGINT, SIG_DFL);
 #ifdef SIGWINCH
     signal(SIGWINCH, SIG_IGN);
+#endif
+#ifdef SIGTSTP
+    signal(SIGTSTP, tstp_handler == (int (*)()) SIG_IGN ? SIG_IGN : SIG_DFL);
 #endif
     if (flags != -1
 #ifdef WIZARD
