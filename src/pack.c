@@ -255,6 +255,7 @@ int type;
 	wrefresh(hw);
 	wait_for(' ');
 	clearok(mw, TRUE);
+	touchwin(stdscr);
     }
     return TRUE;
 }

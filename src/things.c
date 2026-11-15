@@ -542,6 +542,7 @@ char *fmt, *arg;
 	    newpage = TRUE;
 	    line_cnt = 0;
 	    wclear(hw);
+	    touchwin(stdscr);
 	}
 	if (fmt != NULL && !(line_cnt == 0 && *fmt == '\0'))
 	{
