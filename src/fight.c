@@ -219,7 +219,7 @@ register THING *mp;
 			purse = 0;
 		    if (purse != lastpurse)
 			msg("your purse feels lighter");
-		    remove(&mp->t_pos, mp, FALSE);
+		    remove_mon(&mp->t_pos, mp, FALSE);
 		}
 		when 'N':
 		{
@@ -238,7 +238,7 @@ register THING *mp;
 			    steal = obj;
 		    if (steal != NULL)
 		    {
-			remove(&mp->t_pos, moat(mp->t_pos.y, mp->t_pos.x), FALSE);
+			remove_mon(&mp->t_pos, moat(mp->t_pos.y, mp->t_pos.x), FALSE);
 			if (steal->o_count > 1 && steal->o_group == 0)
 			{
 			    register int oc;
@@ -617,7 +617,7 @@ register char *mname;
  * remove:
  *	Remove a monster from the screen
  */
-remove(mp, tp, waskill)
+remove_mon(mp, tp, waskill)
 register coord *mp;
 register THING *tp;
 bool waskill;
@@ -718,5 +718,5 @@ bool pr;
     /*
      * Get rid of the monster.
      */
-    remove(&tp->t_pos, tp, TRUE);
+    remove_mon(&tp->t_pos, tp, TRUE);
 }
