@@ -47,7 +47,7 @@ char *ws_guess[MAXSTICKS];		/* Players guess at what wand is */
 bool ws_know[MAXSTICKS];		/* Does he know what a stick does */
 char *ws_made[MAXSTICKS];		/* What sticks are made of */
 
-char prbuf[MAXSTR];			/* Buffer for sprintfs */
+char prbuf[2*MAXSTR];			/* Buffer for sprintfs */
 char outbuf[BUFSIZ];			/* Output buffer for stdout */
 char whoami[MAXSTR];			/* Name of player */
 char fruit[MAXSTR];			/* Favorite fruit */
