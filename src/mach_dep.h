@@ -22,9 +22,7 @@
 #endif
 
 #ifdef MAXUSERS
-#define	UCOUNT			/* defined if rogue should provide ucount() */
-
-#ifdef UCOUNT
+#ifdef UCOUNT			/* defined if rogue should provide ucount() */
 #define UTMP	"/etc/utmp"	/* where utmp file lives */
 #endif
 #endif
