@@ -383,7 +383,7 @@ def:
 			    hit_monster(unc(pos), &bolt);
 			used = TRUE;
 		    }
-		    else if (ch != 'M' || tp->t_disguise == 'M')
+		    else if (tp->t_type != 'M' || tp->t_disguise == 'M')
 		    {
 			if (terse)
 			    msg("%s misses", name);
