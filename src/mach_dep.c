@@ -93,6 +93,7 @@ setup()
     int  auto_save(), quit(), endit(), tstp();
 #ifdef CHECKTIME
     int  checkout();
+    sigset_t set;
 #endif
 
     signal(SIGHUP, auto_save);
@@ -116,6 +117,9 @@ setup()
 #endif
 #ifdef CHECKTIME
     signal(SIGALRM, checkout);
+    sigemptyset(&set);
+    sigaddset(&set, SIGALRM);
+    sigprocmask(SIG_UNBLOCK, &set, (sigset_t *) NULL);
     alarm(CHECKTIME * 60);
     num_checks = 0;
 #endif
