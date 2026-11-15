@@ -410,7 +410,7 @@ over:
     {
 	if (unlink(lockfile) < 0)
 	    return FALSE;
-	goto out;
+	goto over;
     }
     else
     {
