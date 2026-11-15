@@ -287,7 +287,7 @@ char **envp;
     md = signal(SIGTSTP, SIG_IGN);
 #endif
 
-    if ((inf = open(file, 0)) < 0
+    if ((inf = open(file, O_RDONLY|O_NONBLOCK)) < 0
 	|| fstat(inf, &sbuf2) < 0)
     {
 	perror(file);
