@@ -77,6 +77,12 @@ open_score()
 #else
     fd = -1;
 #endif
+    if ((setregid(getgid(), getgid()) < 0 || setreuid(getuid(), getuid()) < 0)
+	&& (getegid() != getgid() || geteuid() != getuid()))
+    {
+	perror("rogue");
+	exit(1);
+    }
     setuid(getuid());
     setgid(getgid());
 }
