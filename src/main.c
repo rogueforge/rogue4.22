@@ -354,6 +354,7 @@ shell()
 	sleep(1);
     if (pid == 0)
     {
+	close(fd);
 #ifdef SIGXFSZ
 	signal(SIGXFSZ, SIG_DFL);
 #endif
