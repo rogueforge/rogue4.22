@@ -220,6 +220,7 @@ register THING *mp;
 		    if (purse != lastpurse)
 			msg("your purse feels lighter");
 		    remove_mon(&mp->t_pos, mp, FALSE);
+		    mp = NULL;
 		}
 		when 'N':
 		{
@@ -238,7 +239,8 @@ register THING *mp;
 			    steal = obj;
 		    if (steal != NULL)
 		    {
-			remove_mon(&mp->t_pos, moat(mp->t_pos.y, mp->t_pos.x), FALSE);
+			remove_mon(&mp->t_pos, mp, FALSE);
+			mp = NULL;
 			if (steal->o_count > 1 && steal->o_group == 0)
 			{
 			    register int oc;
@@ -275,6 +277,11 @@ register THING *mp;
 	flush_type();
     count = 0;
     status();
+
+    if (mp == NULL)
+	return -1;
+    else
+	return 0;
 }
 
 /*
