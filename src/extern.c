@@ -24,7 +24,7 @@ struct room rooms[MAXROOMS];		/* One for each room -- A level */
 char take;				/* Thing the rogue is taking */
 bool noscore;				/* Was a wizard sometime */
 char runch;				/* Direction player is running */
-char huh[MAXSTR];			/* The last message printed */
+char huh[BUFSIZ + MAXPATH];		/* The last message printed */
 int dnum;				/* Dungeon number */
 THING *cur_weapon;			/* Which weapon he is weilding */
 THING *cur_ring[2];			/* Which rings are being worn */
@@ -52,8 +52,8 @@ char outbuf[BUFSIZ];			/* Output buffer for stdout */
 char whoami[MAXSTR];			/* Name of player */
 char fruit[MAXSTR];			/* Favorite fruit */
 char *ws_type[MAXSTICKS];		/* Is it a wand or a staff */
-char file_name[MAXSTR];			/* Save file name */
-char home[MAXSTR];			/* User's home directory */
+char file_name[MAXPATH];		/* Save file name */
+char home[MAXPATH];			/* User's home directory */
 
 int max_level;				/* Deepest player has gone */
 int ntraps;				/* Number of traps on this level */

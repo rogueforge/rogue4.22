@@ -56,7 +56,7 @@ save_game()
 {
     register FILE *savef;
     register int c;
-    char buf[MAXSTR];
+    char buf[MAXPATH];
 
     if (!save_ok())
     {
@@ -246,7 +246,7 @@ char **envp;
     register int inf;
     register int (*md)();
     extern char **environ;
-    char buf[MAXSTR], name[MAXSTR];
+    char buf[MAXSTR], name[MAXPATH];
     STAT sbuf2;
     int ofd, owiz, y, x;
     sigset_t set, oset;
@@ -369,7 +369,8 @@ char **envp;
     }
 
     environ = envp;
-    strcpy(file_name, file);
+    strncpy(file_name, file, MAXPATH - 1);
+    file_name[MAXPATH - 1] = '\0';
     setup();
 #ifdef CHECKTIME
     sigdelset(&oset, SIGALRM);
