@@ -167,6 +167,8 @@ struct stats max_stats = INIT_STATS;	/* The maximum for the player */
 THING *lvl_obj = NULL;			/* List of objects on this level */
 THING *mlist = NULL;			/* List of monsters on the level */
 
+char fung_dmg[16] = "%%%d0";
+
 #define ___ 1
 #define XX 10
 struct monster monsters[26] =
@@ -179,7 +181,7 @@ struct monster monsters[26] =
 	{ "floating eye",0,	0,	{ XX,  5,   1,   9, ___, "0d0" } },
 		/* NOTE: the damage is %%% so that xstr won't merge this */
 		/* string with others, since it is written on in the program */
-	{ "violet fungi",0,	ISMEAN,	{ XX, 80,   8,   3, ___, "%%%d0" } },
+	{ "violet fungi",0,	ISMEAN,	{ XX, 80,   8,   3, ___, fung_dmg } },
 	{ "gnome",	 10,	0,	{ XX,  7,   1,   5, ___, "1d6" } },
 	{ "hobgoblin",	 0,	ISMEAN,	{ XX,  3,   1,   5, ___, "1d8" } },
 	{ "invisible stalker",0,ISINVIS,{ XX,120,   8,   3, ___, "4d4" } },
