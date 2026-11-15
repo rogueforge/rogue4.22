@@ -448,7 +448,7 @@ register char **guess;
 {
     if (know && *guess)
     {
-	cfree(*guess);
+	free(*guess);
 	*guess = NULL;
     }
     else if (!know && askme && *guess == NULL)
