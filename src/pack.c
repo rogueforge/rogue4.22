@@ -100,6 +100,8 @@ bool silent;
 	    detach(lvl_obj, obj);
 	    mvaddch(hero.y, hero.x, floor);
 	    chat(hero.y, hero.x) = floor;
+	    update_mdest(obj);
+	    discard(obj);
 	    return;
 	}
 	else
