@@ -32,6 +32,8 @@ wear()
 	return;
     }
     waste_time();
+    if (pack_char(obj) == '?')
+	return;
     obj->o_flags |= ISKNOW;
     if (!terse)
 	addmsg("you are now ");
