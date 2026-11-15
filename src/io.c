@@ -156,6 +156,7 @@ readchar()
 status()
 {
     register int oy, ox, temp;
+    char buf[2*MAXSTR];
     static int hpwidth = 0, s_hungry;
     static int s_lvl, s_pur = -1, s_hp, s_ac = 0;
     static str_t s_str;
@@ -176,17 +177,18 @@ status()
 	for (hpwidth = 0; temp; hpwidth++)
 	    temp /= 10;
     }
-    mvprintw(LINES - 1, 0, "Level: %d  Gold: %-5d  Hp: %*d(%*d)  Str: %-2d  Ac: %-2d  Exp: %d/%ld",
+    sprintf(buf, "Level: %d  Gold: %-5d  Hp: %*d(%*d)  Str: %-2d  Ac: %-2d  Exp: %d/%ld",
 	    level, purse, hpwidth, pstats.s_hpt, hpwidth, max_hp, pstats.s_str,
 	    cur_armor != NULL ? cur_armor->o_ac : pstats.s_arm, pstats.s_lvl,
 	    pstats.s_exp);
     switch (hungry_state)
     {
 	when 0: ;
-	when 1: addstr("  Hungry");
-	when 2: addstr("  Weak");
-	when 3: addstr("  Fainting");
+	when 1: strcat(buf, "  Hungry");
+	when 2: strcat(buf, "  Weak");
+	when 3: strcat(buf, "  Fainting");
     }
+    mvprintw(LINES - 1, 0, "%.*s", COLS, buf);
 
     clrtoeol();
     /*
