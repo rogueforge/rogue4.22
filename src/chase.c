@@ -213,6 +213,8 @@ coord *spot;
 #else
     tp = moat(runner->y, runner->x);
 #endif
+    if (tp == NULL)
+	return;
     /*
      * Start the beastie running
      */
@@ -249,6 +251,8 @@ coord *ee;
 	 * get a valid random move
 	 */
 	ch_ret = *rndmove(tp);
+	if (moat(ch_ret.y, ch_ret.x) != NULL)
+	    ch_ret = tp->t_pos;
 	dist = DISTANCE(ch_ret.y, ch_ret.x, ee->y, ee->x);
 	/*
 	 * Small chance that it will become un-confused
@@ -298,6 +302,8 @@ coord *ee;
 			if (obj != NULL && obj->o_which == S_SCARE)
 			    continue;
 		    }
+		    if (moat(y, x) != NULL)
+			continue;
 		    /*
 		     * If we didn't find any scrolls at this place or it
 		     * wasn't a scare scroll, then this place counts
