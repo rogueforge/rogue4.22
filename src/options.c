@@ -224,6 +224,11 @@ WINDOW *win;
 		continue;
 	    }
 	}
+	if (sp >= &buf[MAXINP])
+	{
+	    putchar(CTRL('G'));
+	    continue;
+	}
 	*sp++ = c;
 	waddstr(win, unctrl(c));
     }
@@ -340,17 +345,21 @@ register char *str;
 
 /*
  * strucpy:
- *	Copy string using unctrl for things
+ *	Copy string using unctrl for things, but no more of it than
+ *	MAXINP characters
  */
 strucpy(s1, s2, len)
 register char *s1, *s2;
 register int len;
 {
-    register char *cp;
+    register char *cp, *end = s1 + MAXINP;
 
     while (len--)
     {
-	strcpy(s1, cp = unctrl(*s2++));
+	cp = unctrl(*s2++);
+	if (s1 + strlen(cp) > end)
+	    break;
+	strcpy(s1, cp);
 	s1 += strlen(cp);
     }
     *s1 = '\0';
