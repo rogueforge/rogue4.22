@@ -223,7 +223,7 @@ checkout()
  */
 chmsg(fmt, arg)
 char *fmt;
-int arg;
+double arg;
 {
     if (in_shell)
     {
