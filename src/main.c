@@ -258,8 +258,10 @@ quit()
     /*
      * Reset the signal in case we got here via an interrupt
      */
+#ifdef notdef
     if (signal(SIGINT, quit) != quit)
 	mpos = 0;
+#endif
     getyx(curscr, oy, ox);
     msg("really quit?");
     if (readchar() == 'y')
@@ -327,6 +329,7 @@ shell()
 	sleep(1);
     if (pid == 0)
     {
+	signal(SIGINT, SIG_DFL);
 	execl(sh == NULL ? "/bin/sh" : sh, "shell", "-i", 0);
 	perror("No shelly");
 	exit(-1);
@@ -339,7 +342,11 @@ shell()
 	signal(SIGQUIT, SIG_IGN);
 	while (waitpid(pid, &ret_status, 0) != pid && errno != ECHILD)
 	    continue;
+#ifdef notdef
 	signal(SIGINT, quit);
+#else
+	signal(SIGINT, SIG_IGN);
+#endif
 	signal(SIGQUIT, endit);
 	printf("\n[Press return to continue]");
 	noecho();

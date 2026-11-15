@@ -111,7 +111,11 @@ setup()
     signal(SIGTERM, auto_save);
 #endif
 
+#ifdef notdef
     signal(SIGINT, quit);
+#else
+    signal(SIGINT, SIG_IGN);
+#endif
 #ifndef DUMP
     signal(SIGQUIT, endit);
 #endif
