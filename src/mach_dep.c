@@ -190,13 +190,7 @@ author()
     if (wizard)
 	return TRUE;
 #endif
-    switch (getuid())
-    {
-	case 80:
-	    return TRUE;
-	default:
-	    return FALSE;
-    }
+    return FALSE;
 }
 #endif
 
