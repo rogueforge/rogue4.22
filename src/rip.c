@@ -12,6 +12,7 @@ extern bool MS;
 #include <signal.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <term.h>
 #include "rogue.h"
 
 static char *rip[] = {
@@ -151,8 +152,8 @@ char monst;
 	int _putchar();
 
 	if (scp->sc_score) {
-	    if (sc2 == scp && SO)
-		_puts(SO);
+	    if (sc2 == scp && tigetstr("smso") != NULL)
+		putp(tigetstr("smso"));
 	    printf("%d\t%d\t%s: %s on level %d", (int) (scp - top_ten) + 1,
 		scp->sc_score, scp->sc_name, reason[scp->sc_flags],
 		scp->sc_level);
@@ -194,8 +195,8 @@ char monst;
 	    }
 	    else
 		printf(".\n");
-	    if (sc2 == scp && SE && MS)
-		_puts(SE);
+	    if (sc2 == scp && tigetstr("rmso") != NULL && tigetflag("msgr") > 0)
+		putp(tigetstr("rmso"));
 	}
 	else
 	    break;
