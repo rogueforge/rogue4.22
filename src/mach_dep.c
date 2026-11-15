@@ -97,6 +97,10 @@ setup()
     sigset_t set;
 #endif
 
+    if (LINES > MAXLINES)
+	LINES = MAXLINES;
+    if (COLS > MAXCOLS)
+	COLS = MAXCOLS;
     sprintf(prbuf, "%d", LINES);
     setenv("LINES", prbuf, 1);
     sprintf(prbuf, "%d", COLS);
