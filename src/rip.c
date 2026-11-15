@@ -11,6 +11,7 @@ extern bool MS;
 #include <time.h>
 #include <signal.h>
 #include <sys/types.h>
+#include <sys/resource.h>
 #include <pwd.h>
 #include <term.h>
 #include "rogue.h"
@@ -49,6 +50,7 @@ char monst;
     register int prflags = 0;
     register int (*fp)(), uid;
     extern int (*tstp_handler)();
+    struct rlimit lim;
 
     static struct sc_ent {
 	unsigned short sc_score;
@@ -217,6 +219,8 @@ char monst;
     /*
      * Update the list file
      */
+    if (getrlimit(RLIMIT_FSIZE, &lim) == 0 && lim.rlim_cur < sizeof top_ten)
+	sc2 = NULL;
     if (sc2 != NULL)
     {
 	if (lock_sc())
