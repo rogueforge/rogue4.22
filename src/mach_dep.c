@@ -149,12 +149,14 @@ too_much()
 
 #ifdef MAXLOAD
     loadav(avec);
-    return (avec[1] > (MAXLOAD / 10.0));
-#else
-    if (mytty != NULL && mytty[8] == 'd' && ucount() >= MAXUSERS)
+    if (avec[1] > (MAXLOAD / 10.0))
 	return TRUE;
-    return FALSE;
 #endif
+#ifdef MAXUSERS
+    if (ucount() > MAXUSERS)
+	return TRUE;
+#endif
+    return FALSE;
 }
 
 /*
@@ -264,7 +266,6 @@ ucount()
     register struct utmp *up;
     register FILE *utmp;
     register int count;
-    char c;
 
     if ((utmp = fopen(UTMP, "r")) == NULL)
 	return 0;
@@ -278,8 +279,7 @@ ucount()
 	    continue;
 	else
 #endif
-	if (buf.ut_name[0] != '\0' && buf.ut_line[3] == 'd'
-	    && ((c = buf.ut_line[4]) >= '0' || c <= '5'))
+	if (buf.ut_name[0] != '\0')
 	    count++;
     fclose(utmp);
     return count;
