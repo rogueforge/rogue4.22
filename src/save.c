@@ -331,6 +331,10 @@ char **envp;
     }
     fd = ofd;
     mytty = otty;
+#ifdef WIZARD
+    if ((wizard = owiz) != FALSE)
+	noscore = TRUE;
+#endif
     /*
      * we do not close the file so that we will have a hold of the
      * inode for as long as possible
@@ -364,7 +368,7 @@ char **envp;
      * defeat multiple restarting from the same place
      */
 #ifdef WIZARD
-    if (!wizard)
+    if (!owiz)
 #endif
 	if (sbuf2.st_nlink != 1)
 	{
