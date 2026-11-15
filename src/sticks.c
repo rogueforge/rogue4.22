@@ -346,6 +346,8 @@ char *name;
 	switch (ch)
 	{
 	    case DOOR:
+		if (ce(pos, hero))
+		    goto def;
 	    case '|':
 	    case '-':
 	    case ' ':
@@ -358,6 +360,7 @@ char *name;
 		msg("the %s bounces", name);
 		break;
 	    default:
+def:
 		if (!hit_hero && (tp = moat(pos.y, pos.x)) != NULL)
 		{
 		    hit_hero = TRUE;
