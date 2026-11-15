@@ -281,7 +281,7 @@ register char *str;
 	/*
 	 * Get option name
 	 */
-	for (sp = str; isalpha(*sp); sp++)
+	for (sp = str; isalpha((unsigned char) *sp); sp++)
 	    continue;
 	len = sp - str;
 	/*
@@ -331,7 +331,7 @@ register char *str;
 	/*
 	 * skip to start of next option name
 	 */
-	while (*sp && !isalpha(*sp))
+	while (*sp && !isalpha((unsigned char) *sp))
 	    sp++;
 	str = sp;
     }

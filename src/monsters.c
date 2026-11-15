@@ -222,7 +222,7 @@ genocide()
     if (!terse)
 	addmsg(" do you wish to wipe out");
     msg("? ");
-    while (!isalpha(c = readchar()))
+    while (!isalpha((unsigned char) (c = readchar())))
 	if (c == ESCAPE)
 	    return;
 	else
@@ -231,7 +231,7 @@ genocide()
 	    msg("please specifiy a letter between 'A' and 'Z'");
 	}
     mpos = 0;
-    if (islower(c))
+    if (islower((unsigned char) c))
 	c = toupper(c);
     for (mp = mlist; mp; mp = nmp)
     {
