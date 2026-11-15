@@ -210,19 +210,6 @@ char **envp;
      * inode for as long as possible
      */
 
-#ifdef WIZARD
-    if (!wizard)
-#endif
-	if (sbuf2.st_ino != sbuf.st_ino || sbuf2.st_dev != sbuf.st_dev)
-	{
-	    printf("Sorry, saved game is not in the same file.\n");
-	    return FALSE;
-	}
-	else if (sbuf2.st_ctime - sbuf.st_ctime > 15)
-	{
-	    printf("Sorry, file has been touched, so this score won't be recorded\n");
-	    noscore = TRUE;
-	}
     mpos = 0;
     mvprintw(0, 0, "%s: %s", file, ctime(&sbuf2.st_mtime));
 
