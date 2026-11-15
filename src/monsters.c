@@ -35,10 +35,11 @@ static char wand_mons[] = {
 randmonster(wander)
 bool wander;
 {
-    register int d;
+    register int d, tries;
     register char *mons;
 
     mons = wander ? wand_mons : lvl_mons;
+    tries = 0;
     do
     {
 	d = level + (rnd(10) - 5);
@@ -46,8 +47,10 @@ bool wander;
 	    d = rnd(5) + 1;
 	if (d > 26)
 	    d = rnd(5) + 22;
-    } while (mons[--d] == ' ');
-    return mons[d];
+    } while (mons[--d] == ' ' && ++tries < 1000);
+    while (mons[d] == ' ' && d > 0)
+	d--;
+    return mons[d] == ' ' ? 'K' : mons[d];
 }
 
 /*
