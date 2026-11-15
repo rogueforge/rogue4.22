@@ -107,7 +107,6 @@ char *a_names[MAXARMORS] = {		/* Names of armor types */
     "banded mail",
     "plate mail",
 };
-char *release;				/* Release number of rogue */
 
 int level = 1;				/* What level rogue is on */
 int purse = 0;				/* How much gold the rogue has */
