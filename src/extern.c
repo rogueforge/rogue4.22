@@ -29,6 +29,7 @@ int dnum;				/* Dungeon number */
 THING *cur_weapon;			/* Which weapon he is weilding */
 THING *cur_ring[2];			/* Which rings are being worn */
 WINDOW *hw;				/* Used as a scratch window */
+WINDOW *kw;				/* A copy of the screen */
 
 char *r_guess[MAXRINGS];		/* Players guess at what ring is */
 bool r_know[MAXRINGS];			/* Does he know what a ring does */
@@ -122,6 +123,7 @@ int fung_hit = 0;			/* Number of time fungi has hit */
 int quiet = 0;				/* Number of quiet turns */
 int group = 2;				/* Current group number */
 int hungry_state = 0;			/* How hungry is he */
+int rg_lines, rg_cols;			/* Size of the screen */
 
 int a_chances[MAXARMORS] = {		/* Chance for each armor type */
     20,

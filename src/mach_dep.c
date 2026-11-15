@@ -96,6 +96,14 @@ setup()
     sigset_t set;
 #endif
 
+    sprintf(prbuf, "%d", LINES);
+    setenv("LINES", prbuf, 1);
+    sprintf(prbuf, "%d", COLS);
+    setenv("COLUMNS", prbuf, 1);
+#ifdef NCURSES_VERSION
+    resizeterm(LINES, COLS);
+#endif
+
     signal(SIGHUP, auto_save);
 #ifndef DUMP
     signal(SIGILL, auto_save);
