@@ -10,6 +10,7 @@
  */
 
 #include <stdarg.h>
+#include <time.h>
 
 #define MAXSTR		80	/* maximum length of strings */
 #define MAXLINES	32	/* maximum number of screen lines used */
@@ -62,4 +63,4 @@ int	auto_save(), doctor(), endit(), leave(), nohaste(), quit(),
 int	checkout();
 #endif
 
-long	lseek(), time();
+long	lseek();
