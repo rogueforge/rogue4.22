@@ -11,6 +11,7 @@
 
 #include <stdarg.h>
 #include <time.h>
+#include <unistd.h>
 
 #define MAXSTR		80	/* maximum length of strings */
 #define MAXLINES	32	/* maximum number of screen lines used */
@@ -48,9 +49,9 @@ extern WINDOW	*hw;
  * Function types
  */
 
-char	*brk(), *charge_str(), *ctime(), *getenv(), *inv_name(),
+char	*charge_str(), *ctime(), *getenv(), *inv_name(),
 	*killname(), *malloc(), *nothing(), *num(), *ring_num(),
-	*sbrk(), *strcat(), *strcpy(), *tr_name(),
+	*strcat(), *strcpy(), *tr_name(),
 	*unctrl(), *vowelstr();
 
 int	msg(char *fmt, ...), addmsg(char *fmt, ...);
@@ -62,5 +63,3 @@ int	auto_save(), doctor(), endit(), leave(), nohaste(), quit(),
 #ifdef CHECKTIME
 int	checkout();
 #endif
-
-long	lseek();
