@@ -354,6 +354,9 @@ shell()
 	sleep(1);
     if (pid == 0)
     {
+#ifdef SIGXFSZ
+	signal(SIGXFSZ, SIG_DFL);
+#endif
 	signal(SIGINT, SIG_DFL);
 	execl(sh == NULL ? "/bin/sh" : sh, "shell", "-i", (char *) 0);
 	perror("No shelly");
