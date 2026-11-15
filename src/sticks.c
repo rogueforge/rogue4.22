@@ -366,6 +366,7 @@ def:
 		{
 		    hit_hero = TRUE;
 		    changed = !changed;
+		    tp->t_oldch = chat(pos.y, pos.x);
 		    if (!save_throw(VS_MAGIC, tp))
 		    {
 			bolt.o_pos = pos;
@@ -389,7 +390,6 @@ def:
 			if (start == &hero)
 			    runto(&pos, &hero);
 		    }
-		    tp->t_oldch = chat(pos.y, pos.x);
 		}
 		else if (hit_hero && ce(pos, hero))
 		{
