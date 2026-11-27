@@ -97,11 +97,8 @@ char monst;
 #ifdef SIGTSTP
     signal(SIGTSTP, tstp_handler == (int (*)()) SIG_IGN ? SIG_IGN : SIG_DFL);
 #endif
-    if (flags != -1
 #ifdef WIZARD
-	    || wizard
-#endif
-	)
+    if (wizard)
     {
 	printf("[Press return to continue]");
 	fflush(stdout);
@@ -109,7 +106,6 @@ char monst;
 	    prbuf[0] = '\0';
 	prbuf[strcspn(prbuf, "\n")] = '\0';
     }
-#ifdef WIZARD
     if (wizard)
 	if (strcmp(prbuf, "names") == 0)
 	    prflags = 1;
@@ -172,6 +168,17 @@ char monst;
     }
     if (prflags != 2)
 	put_scores((char *) top_ten, sizeof top_ten, outf, sc2 != NULL);
+    if (flags != -1
+#ifdef WIZARD
+	    && !wizard
+#endif
+	)
+    {
+	printf("[Press return to continue]");
+	fflush(stdout);
+	if (fgets(prbuf, MAXSTR, stdin) == NULL)
+	    prbuf[0] = '\0';
+    }
     /*
      * Print the list
      */
