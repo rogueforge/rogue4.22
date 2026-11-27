@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <signal.h>
+#include <fcntl.h>
 #include "rogue.h"
 
 /*
@@ -146,6 +147,8 @@ readchar()
 	    keep_scr();
 	else if (cnt++ > 100)	/* if we are getting infinite EOFs */
 	    auto_save();	/* save the game */
+	else if (errno == EAGAIN)
+	    fcntl(0, F_SETFL, fcntl(0, F_GETFL, 0) & ~O_NONBLOCK);
     return c;
 }
 
