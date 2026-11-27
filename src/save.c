@@ -56,7 +56,7 @@ save_game()
 {
     register FILE *savef;
     register int c;
-    char buf[MAXPATH];
+    char buf[MAXPATH], oname[MAXPATH];
 
     if (!save_ok())
     {
@@ -127,8 +127,7 @@ gotfile:
 	    if ((sbuf.st_mode & S_IFMT) == S_IFREG)
 		unlink(buf);
 	}
-	strcpy(file_name, buf);
-	c = open(file_name, O_WRONLY|O_CREAT|O_EXCL, 0400);
+	c = open(buf, O_WRONLY|O_CREAT|O_EXCL, 0400);
 	if ((savef = c < 0 ? NULL : fdopen(c, "w")) == NULL)
 	    msg(strerror(errno));	/* fake perror() */
     } while (savef == NULL);
@@ -137,10 +136,13 @@ gotfile:
      * write out encrpyted file (after a stat)
      * The fwrite is to force allocation of the buffer before the write
      */
+    strcpy(oname, file_name);
+    strcpy(file_name, buf);
     if (save_file(savef))
 	return TRUE;
     c = errno;
     unlink(file_name);
+    strcpy(file_name, oname);
     msg(strerror(c));
     return FALSE;
 }
