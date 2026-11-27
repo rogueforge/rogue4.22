@@ -13,6 +13,7 @@ extern bool MS;
 #include <sys/types.h>
 #include <sys/resource.h>
 #include <pwd.h>
+#include <fcntl.h>
 #include <term.h>
 #include "rogue.h"
 
@@ -332,12 +333,23 @@ register char monst;
  * total_winner:
  *	Code for a winner
  */
+static int endsig;
+
+static void
+endwait(sig)
+int sig;
+{
+    endsig = sig;
+}
+
 total_winner()
 {
     register THING *obj;
     register int worth;
     register char c;
     register int oldpurse;
+    char ch;
+    struct sigaction sa, ohup, oterm;
 
     file_name[0] = '\0';
     clear();
@@ -358,7 +370,20 @@ total_winner()
     addstr("a great profit and are admitted to the fighters guild.\n");
     mvaddstr(LINES - 1, 0, "--Press space to continue--");
     refresh();
-    wait_for(' ');
+    sa.sa_handler = endwait;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGHUP, &sa, &ohup);
+    sigaction(SIGTERM, &sa, &oterm);
+    while (read(0, &ch, 1) == 1 && ch != ' ')
+	continue;
+    sigaction(SIGHUP, &ohup, NULL);
+    sigaction(SIGTERM, &oterm, NULL);
+    if (endsig != 0)
+    {
+	close(0);
+	open("/dev/null", O_RDONLY);
+    }
     clear();
     mvaddstr(0, 0, "   Worth  Item");
     oldpurse = purse;
