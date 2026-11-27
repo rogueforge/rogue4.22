@@ -97,7 +97,7 @@ char **envp;
     if (argc == 2 && strcmp(argv[1], "-s") == 0)
     {
 	noscore = TRUE;
-	score(0, -1);
+	score(0, -1, 0);
 	exit(0);
     }
     init_check();			/* check for legal startup */
@@ -293,7 +293,7 @@ quit()
 	mvprintw(LINES - 2, 0, "You quit with %d gold pieces", purse);
 	move(LINES - 1, 0);
 	refresh();
-	score(purse, 1);
+	score(purse, 1, 0);
 	exit(0);
     }
     else

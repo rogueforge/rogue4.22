@@ -424,7 +424,7 @@ total_winner()
     }
     mvprintw(c - 'a' + 1, 0,"   %5d  Gold Pieces          ", oldpurse);
     refresh();
-    score(purse, 2);
+    score(purse, 2, 0);
     exit(0);
 }
 
