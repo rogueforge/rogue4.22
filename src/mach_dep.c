@@ -410,7 +410,7 @@ over:
 	    || lstat(lockfile, &sbuf) < 0)
 		return TRUE;
     }
-    if (time(NULL) - sbuf.st_mtime > 10)
+    if (time(NULL) - sbuf.st_mtime > 10 || sbuf.st_mtime - time(NULL) > 10)
     {
 	if (unlink(lockfile) < 0)
 	    return FALSE;
@@ -432,7 +432,7 @@ over:
 			|| lstat(lockfile, &sbuf) < 0)
 			    return TRUE;
 		}
-		if (time(NULL) - sbuf.st_mtime > 10)
+		if (time(NULL) - sbuf.st_mtime > 10 || sbuf.st_mtime - time(NULL) > 10)
 		{
 		    if (unlink(lockfile) < 0)
 			return FALSE;
