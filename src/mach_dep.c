@@ -31,6 +31,7 @@
 #ifdef SCOREFILE
 static char *lockfile = "/tmp/.roguelock";
 static int sc_held;		/* the score file itself is locked */
+static int sc_busy;		/* another game keeps it locked */
 #endif
 
 #ifdef CHECKTIME
@@ -374,7 +375,10 @@ hold_sc()
     for (cnt = 0; lockf(fd, F_TLOCK, 0L) < 0; cnt++)
     {
 	if (cnt == 5 || (errno != EAGAIN && errno != EACCES))
+	{
+	    sc_busy = (errno == EAGAIN || errno == EACCES);
 	    return (sc_held = FALSE);
+	}
 	sleep(1);
     }
     return (sc_held = TRUE);
@@ -395,6 +399,8 @@ lock_sc()
 
     if (hold_sc())
 	return TRUE;
+    if (sc_busy)
+	return FALSE;
 over:
     if (open(lockfile, O_WRONLY|O_CREAT|O_EXCL, 0000) > 0)
 	return TRUE;

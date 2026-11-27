@@ -129,7 +129,7 @@ char monst;
      * Insert her in list if need be
      */
     sc2 = NULL;
-    if (!noscore)
+    if (!noscore && sc_lock > 0)
     {
 	uid = getuid();
 	for (scp = top_ten; scp < &top_ten[10]; scp++)
@@ -169,6 +169,8 @@ char monst;
     /*
      * Print the list
      */
+    if (!noscore && sc_lock <= 0)
+	printf("\nThe score file was kept locked, and this score is not in it.\n");
     printf("\nTop Ten Rogueists:\nRank\tScore\tName\n");
     for (scp = top_ten; scp < &top_ten[10]; scp++)
     {
