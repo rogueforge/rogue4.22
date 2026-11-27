@@ -172,7 +172,7 @@ auto_save()
 	signal(i, SIG_IGN);
     if (pstats.s_hpt <= 0)
 	file_name[0] = '\0';
-    if (!save_ok())
+    if (!save_ok() || !begun)
     {
 	endwin();
 	exit(1);

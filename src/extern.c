@@ -77,6 +77,7 @@ bool in_shell = FALSE;			/* True if executing a shell */
 bool jump = FALSE;			/* Show running as series of jumps */
 bool passgo = FALSE;			/* Follow passages */
 bool playing = TRUE;			/* True until he quits */
+bool begun = FALSE;			/* The game is set up and being played */
 bool running = FALSE;			/* True if player is running */
 bool save_msg = TRUE;			/* Remember last msg */
 bool slow_invent = FALSE;		/* Inventory one line at a time */

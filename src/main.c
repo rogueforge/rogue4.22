@@ -263,6 +263,7 @@ playit()
 
     oldpos = hero;
     oldrp = roomin(&hero);
+    begun = TRUE;
     while (playing)
 	command();			/* Command execution */
     endit();
