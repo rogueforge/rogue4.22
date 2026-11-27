@@ -48,7 +48,7 @@ char monst;
     register int i;
     register struct sc_ent *sc2;
     register FILE *outf;
-    register char *killer;
+    register char *killer, *why = NULL;
     register int prflags = 0;
     register int (*fp)(), uid;
     extern int (*tstp_handler)();
@@ -119,6 +119,12 @@ char monst;
     if (!noscore)
 	sc_lock = lock_sc();
     i = encread((char *) top_ten, sizeof top_ten, fd);
+    if (i < 0 && sc_lock > 0)
+    {
+	unlock_sc();
+	sc_lock = 0;
+	why = "could not be read";
+    }
     for (scp = sc2 = top_ten; scp < &top_ten[10]; scp++)
 	if ((char *) (scp + 1) - (char *) top_ten <= i && scp->sc_score != 0
 	    && scp->sc_flags <= 2)
@@ -170,7 +176,8 @@ char monst;
      * Print the list
      */
     if (!noscore && sc_lock <= 0)
-	printf("\nThe score file was kept locked, and this score is not in it.\n");
+	printf("\nThe score file %s, and this score is not in it.\n",
+	    why == NULL ? "was kept locked" : why);
     printf("\nTop Ten Rogueists:\nRank\tScore\tName\n");
     for (scp = top_ten; scp < &top_ten[10]; scp++)
     {
