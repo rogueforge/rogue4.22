@@ -273,7 +273,10 @@ command()
 			    obj->o_hplus = 1;
 			    obj->o_dplus = 1;
 			    add_pack(obj, TRUE);
-			    cur_weapon = obj;
+			    if (pack_char(obj) == '?')
+				discard(obj);
+			    else
+				cur_weapon = obj;
 			    /*
 			     * And his suit of armor
 			     */
@@ -283,8 +286,11 @@ command()
 			    obj->o_damage = obj->o_hurldmg = "0d0";
 			    obj->o_ac = -5;
 			    obj->o_flags |= ISKNOW;
-			    cur_armor = obj;
 			    add_pack(obj, TRUE);
+			    if (pack_char(obj) == '?')
+				discard(obj);
+			    else
+				cur_armor = obj;
 			}
 			otherwise:
 			    illcom(ch);
