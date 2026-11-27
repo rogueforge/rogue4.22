@@ -147,6 +147,8 @@ register THING *mp;
 		    }
 		    no_command += rnd(2) + 2;
 		    player.t_flags &= ~ISRUN;
+		    if (no_command > 1300)
+			death(mp->t_type);
 		when 'A':
 		    /*
 		     * Ants have poisonous bites
