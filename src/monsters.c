@@ -76,7 +76,10 @@ register coord *cp;
     tp->t_room = roomin(cp);
     moat(cp->y, cp->x) = tp;
     mp = &monsters[tp->t_type-'A'];
-    tp->t_stats.s_lvl = mp->m_stats.s_lvl + add;
+    if (mp->m_stats.s_lvl + add > 127)
+	tp->t_stats.s_lvl = 127;
+    else
+	tp->t_stats.s_lvl = mp->m_stats.s_lvl + add;
     tp->t_stats.s_maxhp = tp->t_stats.s_hpt = roll(tp->t_stats.s_lvl, 8);
     tp->t_stats.s_arm = mp->m_stats.s_arm - add;
     tp->t_stats.s_dmg = mp->m_stats.s_dmg;
