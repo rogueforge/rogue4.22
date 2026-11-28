@@ -170,7 +170,9 @@ auto_save()
 
     for (i = 0; i < NSIG; i++)
 	signal(i, SIG_IGN);
+#ifdef notdef
     if (pstats.s_hpt <= 0)
+#endif
 	file_name[0] = '\0';
     if (!save_ok() || !begun)
     {
