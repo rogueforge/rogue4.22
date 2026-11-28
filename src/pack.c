@@ -232,7 +232,7 @@ int type;
 	     * in case there is only one.
 	     */
 	    case 0:
-		sprintf(inv_temp, "%c) %s", ch, inv_name(list, FALSE));
+		sprintf(inv_temp, "%c) %.*s", ch, MAXSTR - 4, inv_name(list, FALSE));
 		break;
 	    /*
 	     * If there is more than one, clear the screen, print the
